@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Communications from "./components/communications";
+import FormContainer from './components/FormContainer';
+
 
 const API = 'http://localhost:8080/';
 const DEFAULT_QUERY = 'xcom';
@@ -32,7 +34,11 @@ class App extends Component {
 
     render() {
         return (
-            <Communications communications={this.state.communications}/>
+            <div className="container">
+                <FormContainer/>
+
+                <Communications communications={this.state.communications}/>
+            </div>
         )
     }
 
