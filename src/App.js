@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Communications from "./components/communications";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const API = 'http://localhost:8080/';
+const DEFAULT_QUERY = 'xcom';
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            communications: [],
+        };
+    }
+
+    componentDidMount() {
+        fetch(API + DEFAULT_QUERY, {
+            crossDomain: true,
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+            //     body: JSON.stringify({
+            //         username: user,
+            //         password: pass,
+            //     })
+        })
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({communications: data})
+            })
+            .catch(console.log)
+    }
+
+    render() {
+        return (
+            <Communications communications={this.state.communications}/>
+        )
+    }
+
 }
 
 export default App;
