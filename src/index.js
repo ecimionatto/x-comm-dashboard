@@ -20,7 +20,7 @@ const routing = (
                     <Link to="/newMessage">New Message</Link>
                 </li>
             </ul>
-            <Route exact="/" component={App} />
+            <Route path="/" component={App} />
             <Route path="/messages" component={Messages} />
             <Route path="/newMessage" component={NewMessage} />
         </div>

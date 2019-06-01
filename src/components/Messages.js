@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 const API = 'http://localhost:8080/';
-const DEFAULT_QUERY = 'xcom';
+const DEFAULT_QUERY = 'xcomm';
 
 class Messages extends Component {
     constructor(props) {
