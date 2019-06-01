@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 /* Import Components */
 
-class FormContainer extends Component {
+class NewMessage extends Component {
     constructor(props) {
         super(props);
 
@@ -45,4 +45,4 @@ class FormContainer extends Component {
     }
 };
 
-export default FormContainer
+export default NewMessage

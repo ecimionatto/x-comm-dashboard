@@ -1,47 +1,11 @@
-import React, {Component} from 'react';
-import Communications from "./components/communications";
-import FormContainer from './components/FormContainer';
-
-
-const API = 'http://localhost:8080/';
-const DEFAULT_QUERY = 'xcom';
-
-class App extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            communications: [],
-        };
-    }
-
-    componentDidMount() {
-        fetch(API + DEFAULT_QUERY, {
-            crossDomain: true,
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            //     body: JSON.stringify({
-            //         username: user,
-            //         password: pass,
-            //     })
-        })
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({communications: data})
-            })
-            .catch(console.log)
-    }
-
+import React from 'react'
+class App extends React.Component {
     render() {
         return (
-            <div className="container">
-                <FormContainer/>
-
-                <Communications communications={this.state.communications}/>
+            <div>
+                <h1>XComm</h1>
             </div>
         )
     }
-
 }
-
-export default App;
+export default App
