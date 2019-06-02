@@ -19,7 +19,10 @@ class NewMessage extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                message: event.target.message.value
+                message: event.target.message.value,
+                address: event.target.address.value,
+                type: "SLACK"
+
             })
         });
 
@@ -29,7 +32,9 @@ class NewMessage extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <label htmlFor="message">enter the message</label>
+                <label>address to:</label>
+                <input id="address" name="address" type="text"/>
+                <label>enter the message</label>
                 <input id="message" name="message" type="text"/>
                 <button>save</button>
             </form>

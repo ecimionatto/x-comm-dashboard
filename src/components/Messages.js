@@ -35,6 +35,8 @@ class Messages extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">{c.id}</h5>
+                                <p className="card-text">{c.type}</p>
+                                <p className="card-text">{c.address}</p>
                                 <p className="card-text">{c.message}</p>
                             </div>
                         </div>
