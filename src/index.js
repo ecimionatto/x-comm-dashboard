@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import App from './App'
 import Messages from './components/Messages'
 import NewMessage from './components/NewMessage';
@@ -9,21 +9,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 const routing = (
     <Router>
-        <div>
-            <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/messages">Messages</Link>
-                </li>
-                <li>
-                    <Link to="/newMessage">New Message</Link>
-                </li>
-            </ul>
-            <Route path="/" component={App} />
-            <Route path="/messages" component={Messages} />
-            <Route path="/newMessage" component={NewMessage} />
+        <div className="container-fluid">
+            <Link className="card-link" to="/">Home</Link>
+            <Link className="card-link" to="/messages">Messages</Link>
+            <Link className="card-link" to="/newMessage">New Message</Link>
+            <Route path="/" component={App}/>
+            <Route path="/messages" component={Messages}/>
+            <Route path="/newMessage" component={NewMessage}/>
         </div>
     </Router>
 )

@@ -30,7 +30,6 @@ class Messages extends Component {
             <div className="container">
 
                 <div>
-                    <h1>Messages</h1>
                     {this.state.communications.map((c) => (
                         <div className="card">
                             <div className="card-body">
