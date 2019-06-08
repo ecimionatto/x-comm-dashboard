@@ -5,6 +5,7 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import App from './App'
 import Messages from './components/Messages'
 import NewMessage from './components/NewMessage';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const routing = (
     <Router>
