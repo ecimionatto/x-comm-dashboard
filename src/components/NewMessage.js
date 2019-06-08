@@ -22,6 +22,14 @@ class NewMessage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+
+        var value = [];
+        for (var i = 0, l = event.target.type.length; i < l; i++) {
+            if (event.target.type[i].selected) {
+                value.push(event.target.type[i].value);
+            }
+        }
+
         fetch(API + DEFAULT_QUERY, {
             crossDomain: true,
             method: 'POST',
@@ -29,12 +37,12 @@ class NewMessage extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
+
             body: JSON.stringify({
                 message: event.target.message.value,
                 address: event.target.address.value,
-                type: event.target.type.value,
+                types: value,
                 scheduledTime: event.target.scheduledTime.value
-
             })
         });
 
@@ -46,7 +54,7 @@ class NewMessage extends Component {
             <form onSubmit={this.handleSubmit}>
                 <div className="container">
                     <p className="card-subtitle">Type:</p>
-                    <select className="card-text" id="type" name="type">
+                    <select multiple className="card-text" id="type" name="type">
                         <option value="SLACK">Slack</option>
                         <option value="EMAIL">EMail</option>
                     </select>
