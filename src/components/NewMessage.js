@@ -54,18 +54,19 @@ class NewMessage extends Component {
             <form onSubmit={this.handleSubmit}>
                 <div className="container">
                     <p className="card-subtitle">Type:</p>
-                    <select multiple className="card-text" id="type" name="type">
+                    <select multiple className="card-text" id="type" name="type" required>
                         <option value="SLACK">Slack</option>
                         <option value="EMAIL">EMail</option>
                     </select>
                     <p className="card-subtitle">Address to:</p>
-                    <textarea className="card-text" id="address" name="address" type="text"/>
+                    <textarea className="card-text" id="address" name="address" type="text" required/>
 
                     <p className="card-subtitle">Message:</p>
-                    <textarea id="message" name="message" type="text"/>
+                    <textarea id="message" name="message" type="text" required/>
 
                     <p className="card-subtitle">Schedule:</p>
-                    <DateTimePicker id="scheduledTime" name="scheduledTime" onChange={this.dateChange} value={this.state.scheduledTime}/>
+                    <DateTimePicker id="scheduledTime" name="scheduledTime" onChange={this.dateChange}
+                                    value={this.state.scheduledTime} required/>
 
                     <p className="card-text">
                         <button>save</button>
