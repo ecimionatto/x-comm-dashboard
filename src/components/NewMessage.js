@@ -9,9 +9,33 @@ class NewMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            scheduledTime: new Date()
+            scheduledTime: new Date(),
+            emailToRequired: true,
+            slackToRequired: true
         };
         this.dateChange = this.dateChange.bind(this);
+        this.handleEmailToChange = this.handleEmailToChange.bind(this);
+        this.handleSlackToChange = this.handleSlackToChange.bind(this);
+    }
+
+    handleEmailToChange(event) {
+        if (event.target.value.length > 0) {
+            this.setState({slackToRequired: false})
+            this.setState({emailToRequired: true})
+        } else {
+            this.setState({slackToRequired: true})
+            this.setState({emailToToRequired: true})
+        }
+    }
+
+    handleSlackToChange(event) {
+        if (event.target.value.length > 0) {
+            this.setState({slackToRequired: true})
+            this.setState({emailToRequired: false})
+        } else {
+            this.setState({slackToRequired: true})
+            this.setState({emailToToRequired: true})
+        }
     }
 
     dateChange(date) {
@@ -22,14 +46,6 @@ class NewMessage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        var value = [];
-        for (var i = 0, l = event.target.type.length; i < l; i++) {
-            if (event.target.type[i].selected) {
-                value.push(event.target.type[i].value);
-            }
-        }
-
         fetch(API + DEFAULT_QUERY, {
             crossDomain: true,
             method: 'POST',
@@ -40,8 +56,8 @@ class NewMessage extends Component {
 
             body: JSON.stringify({
                 message: event.target.message.value,
-                address: event.target.address.value,
-                types: value,
+                emailTo: event.target.emailTo.value,
+                slackTo: event.target.slackTo.value,
                 scheduledTime: event.target.scheduledTime.value
             })
         });
@@ -53,13 +69,15 @@ class NewMessage extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="container">
-                    <p className="card-subtitle">Type:</p>
-                    <select multiple className="card-text" id="type" name="type" required>
-                        <option value="SLACK">Slack</option>
-                        <option value="EMAIL">EMail</option>
-                    </select>
-                    <p className="card-subtitle">Address to:</p>
-                    <textarea className="card-text" id="address" name="address" type="text" required/>
+                    <p className="card-subtitle">Email To:</p>
+                    <input className="card-text" id="emailTo" onChange={this.handleEmailToChange} name="emailTo"
+                           type="email"
+                           required={(this.state.emailToRequired)}/>
+
+                    <p className="card-subtitle">Slack To:</p>
+                    <input className="card-text" id="slackTo" onChange={this.handleSlackToChange} name="slackTo"
+                           type="text"
+                           required={(this.state.slackToRequired)}/>
 
                     <p className="card-subtitle">Message:</p>
                     <textarea id="message" name="message" type="text" required/>

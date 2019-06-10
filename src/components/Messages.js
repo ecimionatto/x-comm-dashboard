@@ -35,8 +35,8 @@ class Messages extends Component {
                             <div className="card-body">
                                 <h5 className="card-title">{c.id}</h5>
                                 <p className="card-text">{c.scheduledTime}</p>
-                                <p className="card-text">{c.types}</p>
-                                <p className="card-text">{c.address}</p>
+                                <p className="card-text">emailTo: {c.emailTo}</p>
+                                <p className="card-text">slackTo: {c.slackTo}</p>
                                 <p className="card-text">{c.message}</p>
                             </div>
                         </div>
