@@ -13,6 +13,15 @@ class Messages extends Component {
     }
 
     componentDidMount() {
+        this.interval = setInterval(() => this.fetchMessages(), 2000
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    fetchMessages() {
         fetch(API + DEFAULT_QUERY, {
             crossDomain: true,
             method: 'GET',
@@ -33,11 +42,12 @@ class Messages extends Component {
                     {this.state.communications.map((c) => (
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">{c.id}</h5>
+                                <h5 className="card-title">{c.id} - {c.status}</h5>
                                 <p className="card-text">{c.scheduledTime}</p>
                                 <p className="card-text">emailTo: {c.emailTo}</p>
                                 <p className="card-text">slackTo: {c.slackTo}</p>
-                                <p className="card-text">{c.message}</p>
+                                <p className="card-text">message: {c.message}</p>
+                                <span className="card-text">error: {c.error}</span>
                             </div>
                         </div>
                     ))}

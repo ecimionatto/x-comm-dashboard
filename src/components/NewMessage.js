@@ -46,6 +46,16 @@ class NewMessage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+
+        const jsonBody = JSON.stringify({
+            message: event.target.message.value,
+            emailTo: event.target.emailTo.value,
+            slackTo: event.target.slackTo.value,
+            scheduledTime: event.target.scheduledTime.value
+        });
+
+        console.log(jsonBody)
+
         fetch(API + DEFAULT_QUERY, {
             crossDomain: true,
             method: 'POST',
@@ -53,13 +63,7 @@ class NewMessage extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-
-            body: JSON.stringify({
-                message: event.target.message.value,
-                emailTo: event.target.emailTo.value,
-                slackTo: event.target.slackTo.value,
-                scheduledTime: event.target.scheduledTime.value
-            })
+            body: jsonBody
         });
 
         window.location.pathname = "messages";
