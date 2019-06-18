@@ -13,7 +13,7 @@ class Messages extends Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.fetchMessages(), 2000
+        this.interval = setInterval(() => this.fetchMessages(), 1000
         );
     }
 
@@ -37,20 +37,22 @@ class Messages extends Component {
     render() {
         return (
             <div className="container">
-
-                <div>
-                    {this.state.communications.map((c) => (
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{c.id} - {c.status}</h5>
-                                <p className="card-text">{c.scheduledTime}</p>
-                                <p className="card-text">emailTo: {c.emailTo}</p>
-                                <p className="card-text">slackTo: {c.slackTo}</p>
-                                <p className="card-text">message: {c.message}</p>
-                                <span className="card-text">error: {c.error}</span>
+                <div className="container">
+                    <h3 className="modal-title">Messages</h3>
+                    <div className="card-header">
+                        {this.state.communications.map((c) => (
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">{c.id} - {c.status}</h5>
+                                    <p className="card-text">{c.scheduledTime}</p>
+                                    <p className="card-text">emailTo: {c.emailTo ? c.emailTo : "N/A"}</p>
+                                    <p className="card-text">slackTo: {c.slackTo ? c.slackTo : "N/A"}</p>
+                                    <p className="card-text">message: {c.message}</p>
+                                    <span className="card-text">error: {c.error ? c.error : "none"}</span>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         )

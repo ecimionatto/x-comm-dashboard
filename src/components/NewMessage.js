@@ -73,26 +73,29 @@ class NewMessage extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="container">
-                    <p className="card-subtitle">Email To:</p>
-                    <input className="card-text" id="emailTo" onChange={this.handleEmailToChange} name="emailTo"
-                           type="email"
-                           required={(this.state.emailToRequired)}/>
+                    <h3 className="modal-title">New Message</h3>
+                    <div className="card-header">
+                        <p className="card-subtitle">Email To:</p>
+                        <input className="card-text" id="emailTo" onChange={this.handleEmailToChange} name="emailTo"
+                               type="email"
+                               required={(this.state.emailToRequired)}/>
 
-                    <p className="card-subtitle">Slack To:</p>
-                    <input className="card-text" id="slackTo" onChange={this.handleSlackToChange} name="slackTo"
-                           type="text"
-                           required={(this.state.slackToRequired)}/>
+                        <p className="card-subtitle">Slack To:</p>
+                        <input className="card-text" id="slackTo" onChange={this.handleSlackToChange} name="slackTo"
+                               type="text"
+                               required={(this.state.slackToRequired)}/>
 
-                    <p className="card-subtitle">Message:</p>
-                    <textarea id="message" name="message" type="text" required/>
+                        <p className="card-subtitle">Message:</p>
+                        <textarea rows="4" cols="50" id="message" name="message" type="text" required/>
 
-                    <p className="card-subtitle">Schedule:</p>
-                    <DateTimePicker id="scheduledTime" name="scheduledTime" onChange={this.dateChange}
-                                    value={this.state.scheduledTime} required/>
+                        <p className="card-subtitle">Schedule:</p>
+                        <DateTimePicker id="scheduledTime" name="scheduledTime" onChange={this.dateChange}
+                                        value={this.state.scheduledTime} required/>
 
-                    <p className="card-text">
-                        <button>save</button>
-                    </p>
+                        <p className="card-text">
+                            <button>save</button>
+                        </p>
+                    </div>
                 </div>
             </form>
         );
