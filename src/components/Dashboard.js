@@ -12,7 +12,7 @@ class Messages extends Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.fetchMessages(), 5000
+        this.interval = setInterval(() => this.fetchMessages(), 1000
         );
     }
 
@@ -40,10 +40,10 @@ class Messages extends Component {
                 <div className="card-header">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="card-title">sent: {this.state.dashboard.sent ? this.state.dashboard.sent : 0}</h5>
+                            <h5 className="card-title">sent: {this.state.dashboard[0] ? this.state.dashboard[0].sent : 0}</h5>
                         </div>
                         <div className="card-body">
-                            <h5 className="card-title">errors: {this.state.dashboard.errors ? this.state.dashboard.errors : 0}</h5>
+                            <h5 className="card-title">errors: {this.state.dashboard[0] ? this.state.dashboard[0].failed : 0}</h5>
                         </div>
                     </div>
                 </div>
