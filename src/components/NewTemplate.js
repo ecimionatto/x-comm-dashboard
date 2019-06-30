@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import DateTimePicker from 'react-datetime-picker'
 
 const API = 'http://localhost:8080/';
 const DEFAULT_QUERY = 'template';

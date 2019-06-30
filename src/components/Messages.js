@@ -43,7 +43,7 @@ class Messages extends Component {
                         <a href="newMessage">New</a>
                     </p>
                     <div className="card-header">
-                        {this.state.communications.length == 0 ? "no records" : this.state.communications.map((c) => (
+                        {this.state.communications.length === 0 ? "no records" : this.state.communications.map((c) => (
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">{c.id} - {c.status}</h5>

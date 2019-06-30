@@ -47,7 +47,7 @@ class Templates extends Component {
                         <a href="newTemplate">New</a>
                     </p>
                     <div className="card-header">
-                        {this.state.templates.length == 0 ? "no records" : this.state.templates.map((template) => (
+                        {this.state.templates.length === 0 ? "no records" : this.state.templates.map((template) => (
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">{template.message}</h5>

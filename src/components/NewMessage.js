@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import DateTimePicker from 'react-datetime-picker'
+import Select from 'react-select';
 
 const API = 'http://localhost:8080/';
 const DEFAULT_QUERY = 'xcomm';
@@ -11,11 +12,19 @@ class NewMessage extends Component {
         this.state = {
             scheduledTime: new Date(),
             emailToRequired: true,
-            slackToRequired: true
+            slackToRequired: true,
+            message: "",
+            templates: []
         };
         this.dateChange = this.dateChange.bind(this);
         this.handleEmailToChange = this.handleEmailToChange.bind(this);
         this.handleSlackToChange = this.handleSlackToChange.bind(this);
+        this.loadMessage = this.loadMessage.bind(this);
+
+    }
+
+    componentWillMount() {
+        this.fetchTemplates()
     }
 
     handleEmailToChange(event) {
@@ -35,6 +44,13 @@ class NewMessage extends Component {
         } else {
             this.setState({slackToRequired: true})
             this.setState({emailToToRequired: true})
+        }
+    }
+
+    loadMessage(event) {
+        console.log(event)
+        if (event) {
+            this.setState({message: event.value})
         }
     }
 
@@ -69,6 +85,19 @@ class NewMessage extends Component {
         window.location.pathname = "messages";
     }
 
+    fetchTemplates() {
+        fetch(API + "template", {
+            crossDomain: true,
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+        })
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({templates: data.map(data => ({label: data.id, value: data.message}))})
+            })
+            .catch(console.log);
+    }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
@@ -86,7 +115,10 @@ class NewMessage extends Component {
                                required={(this.state.slackToRequired)}/>
 
                         <p className="card-subtitle">Message:</p>
-                        <textarea rows="4" cols="50" id="message" name="message" type="text" required/>
+                        <Select id="template" options={this.state.templates} onChange={this.loadMessage}/>
+
+                        <textarea rows="4" cols="50" id="message" value={this.state.message} name="message" type="text"
+                                  required/>
 
                         <p className="card-subtitle">Schedule:</p>
                         <DateTimePicker id="scheduledTime" name="scheduledTime" onChange={this.dateChange}
