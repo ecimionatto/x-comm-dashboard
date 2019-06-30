@@ -39,8 +39,11 @@ class Messages extends Component {
             <div className="container">
                 <div className="container">
                     <h3 className="modal-title">Messages</h3>
+                    <p>
+                        <a href="newMessage">New</a>
+                    </p>
                     <div className="card-header">
-                        {this.state.communications.map((c) => (
+                        {this.state.communications.length == 0 ? "no records" : this.state.communications.map((c) => (
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">{c.id} - {c.status}</h5>
