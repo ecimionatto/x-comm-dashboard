@@ -20,6 +20,7 @@ class NewMessage extends Component {
         this.handleEmailToChange = this.handleEmailToChange.bind(this);
         this.handleSlackToChange = this.handleSlackToChange.bind(this);
         this.loadMessage = this.loadMessage.bind(this);
+        this.acceptText = this.acceptText.bind(this)
 
     }
 
@@ -60,6 +61,14 @@ class NewMessage extends Component {
         });
     }
 
+    acceptText(event) {
+        if (event) {
+            this.setState({
+                message: event.value
+            });
+        }
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
@@ -93,7 +102,10 @@ class NewMessage extends Component {
         })
             .then(res => res.json())
             .then((data) => {
-                this.setState({templates: data.map(data => ({label: data.id, value: data.message}))})
+                this.setState({
+                    templates:
+                        data.map(data => ({label: data.name, value: data.message}))
+                })
             })
             .catch(console.log);
     }
@@ -110,22 +122,30 @@ class NewMessage extends Component {
                                required={(this.state.emailToRequired)}/>
 
                         <p className="card-subtitle">Slack To:</p>
-                        <input className="card-text" id="slackTo" onChange={this.handleSlackToChange} name="slackTo"
+                        <input className="card-text" id="slackTo"
+                               onChange={this.handleSlackToChange}
+                               name="slackTo"
                                type="text"
                                required={(this.state.slackToRequired)}/>
 
                         <p className="card-subtitle">Message:</p>
-                        <Select id="template" options={this.state.templates} onChange={this.loadMessage}/>
+                        <Select className="card-text" id="template"
+                                options={this.state.templates}
+                                onChange={this.loadMessage}/>
 
-                        <textarea rows="4" cols="50" id="message" value={this.state.message} name="message" type="text"
+                        <textarea className="card-text" rows="4" cols="50" id="message"
+                                  value={this.state.message}
+                                  onChange={this.acceptText}
+                                  name="message"
                                   required/>
 
                         <p className="card-subtitle">Schedule:</p>
-                        <DateTimePicker id="scheduledTime" name="scheduledTime" onChange={this.dateChange}
+                        <DateTimePicker className="card-text" id="scheduledTime" name="scheduledTime" onChange={this.dateChange}
                                         value={this.state.scheduledTime} required/>
 
-                        <p className="card-text">
-                            <button>save</button>
+                        <p className="card-text"></p>
+                        <p>
+                            <button className="btn btn-primary">save</button>
                         </p>
                     </div>
                 </div>

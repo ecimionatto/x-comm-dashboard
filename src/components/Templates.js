@@ -42,16 +42,17 @@ class Templates extends Component {
         return (
             <div className="container">
                 <div className="container">
-                    <h3 className="modal-title">Templates</h3>
+                    <h2 className="modal-title">Templates</h2>
                     <p>
-                        <a href="newTemplate">New</a>
+                        <a className="btn btn-info" href="newTemplate">New</a>
                     </p>
                     <div className="card-header">
                         {this.state.templates.length === 0 ? "no records" : this.state.templates.map((template) => (
                             <div className="card">
+                                <h5 className="card-header">{template.name}</h5>
                                 <div className="card-body">
-                                    <h5 className="card-title">{template.message}</h5>
-                                    <button value={template.id}
+                                    <p class="card-text">{template.message}</p>
+                                    <button className="btn btn-danger" value={template.id}
                                             onClick={() => this.deleteTemplate(template.id)}>remove
                                     </button>
                                 </div>

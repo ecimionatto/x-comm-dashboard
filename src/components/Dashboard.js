@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 const API = 'http://localhost:8080/';
 const DEFAULT_QUERY = 'dashboard';
 
-class Messages extends Component {
+class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -53,4 +53,4 @@ class Messages extends Component {
 
 }
 
-export default Messages;
+export default Dashboard;

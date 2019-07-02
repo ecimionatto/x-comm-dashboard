@@ -14,7 +14,8 @@ class NewTemplate extends Component {
         event.preventDefault();
 
         const jsonBody = JSON.stringify({
-            message: event.target.message.value,
+            name: event.target.name.value,
+            message: event.target.message.value
         });
 
         console.log(jsonBody)
@@ -36,12 +37,14 @@ class NewTemplate extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="container">
-                    <h3 className="modal-title">New Message</h3>
+                    <h3 className="modal-title">New Template</h3>
                     <div className="card-header">
+                        <p className="card-subtitle">Name:</p>
+                        <input className="card-text" rows="4" cols="50" id="name" name="name" type="text" required/>
                         <p className="card-subtitle">Message:</p>
-                        <textarea rows="4" cols="50" id="message" name="message" type="text" required/>
+                        <textarea className="card-text" rows="4" cols="50" id="message" name="message" required/>
                         <p className="card-text">
-                            <button>save</button>
+                            <button className="btn btn-primary">save</button>
                         </p>
                     </div>
                 </div>

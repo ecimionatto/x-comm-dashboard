@@ -34,29 +34,35 @@ class Messages extends Component {
             .catch(console.log)
     }
 
+    deleteMessage(id) {
+        fetch(API + DEFAULT_QUERY + "/" + id, {
+            crossDomain: true,
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+        }).catch(console.log)
+    }
+
     render() {
         return (
             <div className="container">
-                <div className="container">
-                    <h3 className="modal-title">Messages</h3>
-                    <p>
-                        <a href="newMessage">New</a>
-                    </p>
-                    <div className="card-header">
-                        {this.state.communications.length === 0 ? "no records" : this.state.communications.map((c) => (
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">{c.id} - {c.status}</h5>
-                                    <p className="card-text">{c.scheduledTime}</p>
-                                    <p className="card-text">emailTo: {c.emailTo ? c.emailTo : "N/A"}</p>
-                                    <p className="card-text">slackTo: {c.slackTo ? c.slackTo : "N/A"}</p>
-                                    <p className="card-text">message: {c.message}</p>
-                                    <span className="card-text">error: {c.error ? c.error : "none"}</span>
-                                </div>
-                            </div>
-                        ))}
+                <h3 className="modal-title">Messages</h3>
+                <p>
+                    <a className="btn btn-info" href="newMessage">New</a>
+                </p>
+                {this.state.communications.length === 0 ? "no records" : this.state.communications.map(message => (
+                    <div className="card">
+                        <h5 className="card-header">{message.id} - {message.status}</h5>
+                        <div className="card-body">
+                            <p className="card-text">{message.scheduledTime}</p>
+                            <p className="card-text">emailTo: {message.emailTo ? message.emailTo : "N/A"}</p>
+                            <p className="card-text">slackTo: {message.slackTo ? message.slackTo : "N/A"}</p>
+                            <p className="card-text">{message.message}</p>
+                            <button className="btn btn-danger" value={message.id}
+                                    onClick={() => this.deleteMessage(message.id)}>remove
+                            </button>
+                        </div>
                     </div>
-                </div>
+                ))}
             </div>
         )
     }

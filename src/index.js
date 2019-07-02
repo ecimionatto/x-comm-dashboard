@@ -13,17 +13,30 @@ import 'bootstrap/dist/css/bootstrap.css';
 const routing = (
     <Router>
         <h1 className="modal-title">X-Comm Communicator</h1>
-        <div className="container-fluid">
-            <Link className="card-link" to="/dashboard">Dashboard</Link>
-            <Link className="card-link" to="/messages">Messages</Link>
-            <Link className="card-link" to="/templates">Templates</Link>
+        <div className="card">
+            <div className="card-header">
+                <ul className="nav nav-tabs card-header-tabs">
+                    <li className="nav-item">
+                        <Link className="nav-link active" to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/messages">Messages</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/templates">Templates</Link>
+                    </li>
+                </ul>
+            </div>
+
             <Route path="/" exact component={Dashboard}/>
             <Route path="/dashboard" component={Dashboard}/>
             <Route path="/messages" component={Messages}/>
-            <Route path="/newMessage" component={NewMessage}/>
             <Route path="/templates" component={Templates}/>
-            <Route path="/newTemplate" component={NewTemplate}/>
 
+            <Link className="hide" to="/newMessage"/>
+            <Link className="hide" to="/newTemplate"/>
+            <Route path="/newMessage" component={NewMessage}/>
+            <Route path="/newTemplate" component={NewTemplate}/>
         </div>
     </Router>
 )
