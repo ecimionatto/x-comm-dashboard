@@ -12,7 +12,7 @@ class Messages extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.interval = setInterval(() => this.fetchMessages(), 1000
         );
     }
