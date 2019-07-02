@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+  localhost:
+    image: ecimionatto/x-comm-api
+    ports:
+      - "8080:8080"
+      - "8077:8077"
+      - "5005:5005"
+    depends_on:
+      - mongodb
+    environment:
+      - spring_profiles_active=docker
+      - MONGODB_HOST=mongodb
+
+  x-comm-dashboard:
+    container_name: x-comm-dashboard
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ecimionatto/x-comm-dashboard
+    ports:
+      - "3000:3000"
+    depends_on:
+      - localhost
+    environment:
+      - X_COMM_API_HOST=localhost
+
+

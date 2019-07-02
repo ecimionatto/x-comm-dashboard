@@ -2,20 +2,44 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import App from './App'
 import Messages from './components/Messages'
 import NewMessage from './components/NewMessage';
+import Dashboard from './components/Dashboard';
+import Templates from './components/Templates';
+import NewTemplate from './components/NewTemplate';
+
 import 'bootstrap/dist/css/bootstrap.css';
 
 const routing = (
     <Router>
-        <div className="container-fluid">
-            <Link className="card-link" to="/">Home</Link>
-            <Link className="card-link" to="/messages">Messages</Link>
-            <Link className="card-link" to="/newMessage">New Message</Link>
-            <Route path="/" component={App}/>
+        <div className="card text-white bg-dark mb-3">
+            <h1 className="modal-title">X-Comm Communicator</h1>
+        </div>
+
+        <div className="card">
+            <div className="card-header">
+                <ul className="nav nav-tabs card-header-tabs">
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/messages">Messages</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/templates">Templates</Link>
+                    </li>
+                </ul>
+            </div>
+
+            <Route path="/" exact component={Dashboard}/>
+            <Route path="/dashboard" component={Dashboard}/>
             <Route path="/messages" component={Messages}/>
+            <Route path="/templates" component={Templates}/>
+
+            <Link className="hide" to="/newMessage"/>
+            <Link className="hide" to="/newTemplate"/>
             <Route path="/newMessage" component={NewMessage}/>
+            <Route path="/newTemplate" component={NewTemplate}/>
         </div>
     </Router>
 )
