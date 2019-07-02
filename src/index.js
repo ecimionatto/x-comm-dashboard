@@ -12,7 +12,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 const routing = (
     <Router>
-        <h1 className="modal-title">X-Comm Communicator</h1>
+        <div className="card text-white bg-dark mb-3">
+            <h1 className="modal-title">X-Comm Communicator</h1>
+        </div>
+
         <div className="card">
             <div className="card-header">
                 <ul className="nav nav-tabs card-header-tabs">
