@@ -13,8 +13,9 @@ class Messages extends Component {
     }
 
     componentWillMount() {
-        this.interval = setInterval(() => this.fetchMessages(), 1000
-        );
+        this.fetchMessages()
+
+        this.interval = setInterval(() => this.fetchMessages(), 1000);
     }
 
     componentWillUnmount() {

@@ -12,8 +12,8 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.fetchMessages(), 1000
-        );
+        this.fetchMessages()
+        this.interval = setInterval(() => this.fetchMessages(), 5000);
     }
 
     componentWillUnmount() {
