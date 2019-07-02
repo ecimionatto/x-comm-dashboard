@@ -44,7 +44,7 @@ class NewTemplate extends Component {
                         <p className="card-subtitle">Message:</p>
                         <textarea className="card-text" rows="4" cols="50" id="message" name="message" required/>
                         <p className="card-text">
-                            <button className="btn btn-primary">save</button>
+                            <button className="btn btn-dark">save</button>
                         </p>
                     </div>
                 </div>

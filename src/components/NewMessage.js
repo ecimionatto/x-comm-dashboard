@@ -145,7 +145,7 @@ class NewMessage extends Component {
 
                         <p className="card-text"></p>
                         <p>
-                            <button className="btn btn-primary">save</button>
+                            <button className="btn btn-dark">save</button>
                         </p>
                     </div>
                 </div>
