@@ -17,7 +17,7 @@ const routing = (
             <div className="card-header">
                 <ul className="nav nav-tabs card-header-tabs">
                     <li className="nav-item">
-                        <Link className="nav-link active" to="/dashboard">Dashboard</Link>
+                        <Link className="nav-link" to="/dashboard">Dashboard</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/messages">Messages</Link>
