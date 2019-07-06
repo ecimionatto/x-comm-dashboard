@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React Messages](https://github.com/facebook/create-react-app).
 
+## Docker Image
+### Build/Push 
+`npm run build`
+`docker build -t ecimionatto/x-comm-dashboard .`
+`docker push ecimionatto/x-comm-dashboard`
+
+## Docker Compose
+`docker-compose up/down`
+
 ## Available Scripts
 
 In the project directory, you can run:

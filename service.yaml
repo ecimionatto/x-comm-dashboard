@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: x-comm-api
+spec:
+  selector:
+    app: x-comm-api
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: http

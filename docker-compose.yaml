@@ -37,6 +37,6 @@ services:
     depends_on:
       - localhost
     environment:
-      - X_COMM_API_HOST=localhost
+      - API_HOST=test
 
 
