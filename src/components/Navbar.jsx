@@ -14,18 +14,20 @@ const NavBar = () => {
 
     return (
 
-        <div>
+        <span>
             {!isAuthenticated && (
-                <button
-                    onClick={() =>
-                        loginWithRedirect({})
-                    }
-                >
-                    Log in
-                </button>
+                <div className="card">
+                    <div className="card-header">
+                        <ul className="nav nav-tabs card-header-tabs">
+                            <li className="nav-item">
+                                <a className="nav-link" href="" onClick={() => loginWithRedirect({})}>
+                                    Log in
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             )}
-
-            {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
 
             {isAuthenticated && (
                 <div className="card">
@@ -40,6 +42,9 @@ const NavBar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/templates">Templates</Link>
                             </li>
+                            <li>
+                                <a className="nav-link" href="" onClick={() => logout()}>Log out</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -50,13 +55,12 @@ const NavBar = () => {
 
                     <Link className="hide" to="/newMessage"/>
                     <Link className="hide" to="/newTemplate"/>
-                    <Route path="/newMessage" component={NewMessage}/>
-                    <Route path="/newTemplate" component={NewTemplate}/>
+                    <PrivateRoute path="/newMessage" component={NewMessage}/>
+                    <PrivateRoute path="/newTemplate" component={NewTemplate}/>
                     <PrivateRoute path="/profile" component={Profile}/>
                 </div>
-
             )}
-        </div>
+        </span>
 
     );
 };

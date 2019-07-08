@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 const API = 'http://localhost:8080/';
 const DEFAULT_QUERY = 'xcomm';
@@ -48,7 +49,7 @@ class Messages extends Component {
             <div className="container">
                 <h3 className="modal-title">Messages</h3>
                 <p>
-                    <a className="btn btn-info" href="newMessage">New</a>
+                    <Link className="btn btn-info" to="/newMessage">New</Link>
                 </p>
                 {this.state.communications.length === 0 ? "no records" : this.state.communications.map(message => (
                     <div className="card">
