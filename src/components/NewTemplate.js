@@ -8,29 +8,34 @@ class NewTemplate extends Component {
     constructor(props) {
         super(props);
         this.state = null;
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleSubmit(event) {
-        event.preventDefault();
 
-        const jsonBody = JSON.stringify({
-            name: event.target.form.name.value,
-            message: event.target.form.message.value
-        });
+        if (event) {
 
-        console.log(jsonBody)
+            event.preventDefault();
 
-        fetch(API + DEFAULT_QUERY, {
-            crossDomain: true,
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: jsonBody
-        });
+            const jsonBody = JSON.stringify({
+                name: event.target.form.name.value,
+                message: event.target.form.message.value
+            });
 
-        window.location.pathname = "templates";
+            console.log(jsonBody)
+
+            fetch(API + DEFAULT_QUERY, {
+                crossDomain: true,
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: jsonBody
+            });
+
+            return this.props.history.push("/templates")
+        }
     }
 
     render() {
