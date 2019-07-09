@@ -6,6 +6,7 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "./Dashboard"
 import Messages from "./Messages"
 import Templates from "./Templates"
+import Settings from "./Settings"
 import NewMessage from "./NewMessage"
 import NewTemplate from "./NewTemplate"
 
@@ -44,6 +45,9 @@ const NavBar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/profile">Profile</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/settings">Settings</Link>
+                            </li>
                             <li>
                                 <a className="nav-link" href="" onClick={() => logout()}>Log out</a>
                             </li>
@@ -54,6 +58,7 @@ const NavBar = () => {
                     <Route path="/dashboard" component={Dashboard}/>
                     <Route path="/messages" component={Messages}/>
                     <Route path="/templates" component={Templates}/>
+                    <Route path="/settings" component={Settings}/>
 
                     <Link className="hide" to="/newMessage"/>
                     <Link className="hide" to="/newTemplate"/>
