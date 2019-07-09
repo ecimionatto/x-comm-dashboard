@@ -10,10 +10,9 @@ import NewMessage from "./NewMessage"
 import NewTemplate from "./NewTemplate"
 
 const NavBar = () => {
-    const {isAuthenticated, loginWithRedirect, logout} = useAuth0();
+    const {isAuthenticated, loginWithRedirect, logout, user} = useAuth0();
 
     return (
-
         <span>
             {!isAuthenticated && (
                 <div className="card">
@@ -41,6 +40,9 @@ const NavBar = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/templates">Templates</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/profile">Profile</Link>
                             </li>
                             <li>
                                 <a className="nav-link" href="" onClick={() => logout()}>Log out</a>
