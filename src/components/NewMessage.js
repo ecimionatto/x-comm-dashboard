@@ -129,7 +129,7 @@ class NewMessage extends Component {
                     <h3 className="modal-title">New Message</h3>
                     <div className="card-header">
                         <p className="card-subtitle">Email To:</p>
-                        <input className="card-text" id="emailTo"
+                        <input className="card-text w-50" id="emailTo"
                                onChange={this.handleEmailToChange}
                                name="emailTo"
                                type="email"
@@ -137,7 +137,7 @@ class NewMessage extends Component {
                                required={(this.state.emailToRequired)}/>
 
                         <p className="card-subtitle">Slack To:</p>
-                        <input className="card-text" id="slackTo"
+                        <input className="card-text w-50" id="slackTo"
                                onChange={this.handleSlackToChange}
                                name="slackTo"
                                type="text"
