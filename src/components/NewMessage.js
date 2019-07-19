@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select';
 import {useAuth0} from "../react-auth0-wrapper";
@@ -6,87 +6,67 @@ import {useAuth0} from "../react-auth0-wrapper";
 const API = 'http://localhost:8080/';
 const DEFAULT_QUERY = 'xcomm';
 
-const useAuth0Value = () => {
+function NewMessage(props) {
+
+    const [scheduledTime, setScheduledTime] = useState(new Date());
+    const [emailToRequired, setEmailToRequired] = useState(true);
+    const [slackToRequired, setSlackToRequired] = useState(true);
+    const [templates, setTemplates] = useState([]);
+    const [message, setMessage] = useState('');
+    const [slackTo, setSlackTo] = useState('');
+    const [emailTo, setEmailTo] = useState('');
     const {user} = useAuth0();
-    return user
-};
 
-class NewMessage extends Component {
+    useEffect(() => {
+        fetchTemplates()
+    }, []);
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            scheduledTime: new Date(),
-            emailToRequired: true,
-            slackToRequired: true,
-            message: "",
-            user: useAuth0Value,
-            templates: []
-        };
-        this.dateChange = this.dateChange.bind(this);
-        this.handleEmailToChange = this.handleEmailToChange.bind(this);
-        this.handleSlackToChange = this.handleSlackToChange.bind(this);
-        this.loadMessage = this.loadMessage.bind(this);
-        this.acceptText = this.acceptText.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-    componentWillMount() {
-        this.fetchTemplates()
-    }
-
-    handleEmailToChange(event) {
-        if (event.target.value.length > 0) {
-            this.setState({slackToRequired: false})
-            this.setState({emailToRequired: true})
+    const handleEmailToChange = e => {
+        if (e.target.value.length > 0) {
+            setSlackToRequired(false)
+            setEmailToRequired(true)
         } else {
-            this.setState({slackToRequired: true})
-            this.setState({emailToToRequired: true})
+            setSlackToRequired(true)
+            setEmailToRequired(true)
         }
     }
 
-    handleSlackToChange(event) {
-        if (event.target.value.length > 0) {
-            this.setState({slackToRequired: true})
-            this.setState({emailToRequired: false})
+    const handleSlackToChange = e => {
+        if (e.target.value.length > 0) {
+            setSlackToRequired(true)
+            setEmailToRequired(false)
         } else {
-            this.setState({slackToRequired: true})
-            this.setState({emailToToRequired: true})
+            setSlackToRequired(true)
+            setEmailToRequired(true)
         }
     }
 
-    loadMessage(event) {
+    const loadMessage = event => {
         console.log(event)
         if (event) {
-            this.setState({message: event.value})
+            setMessage(event.value)
         }
     }
 
-    dateChange(date) {
-        this.setState({
-            scheduledTime: date
-        });
-    }
+    const dateChange = date => {
+        if (date) {
+            setScheduledTime(date)
+        }
+    };
 
-    acceptText(event) {
+    const acceptText = event => {
         if (event) {
-            this.setState({
-                message: event.value
-            });
+            setMessage(event.value);
         }
     }
 
-    handleSubmit(event) {
+    const handleSubmit = event => {
         if (event) {
-            event.preventDefault();
-
             const jsonBody = JSON.stringify({
                 message: event.target.form.message.value,
                 emailTo: event.target.form.emailTo.value,
                 slackTo: event.target.form.slackTo.value,
                 scheduledTime: event.target.form.scheduledTime.value,
-                user: useAuth0Value.email
             });
 
             console.log(jsonBody)
@@ -101,11 +81,11 @@ class NewMessage extends Component {
                 body: jsonBody
             });
 
-            return this.props.history.push("/messages")
+            return props.history.push("/messages")
         }
     }
 
-    fetchTemplates() {
+    const fetchTemplates = () => {
         fetch(API + "template", {
             crossDomain: true,
             method: 'GET',
@@ -113,65 +93,59 @@ class NewMessage extends Component {
         })
             .then(res => res.json())
             .then((data) => {
-                this.setState({
-                    templates:
-                        data.map(data => ({label: data.name, value: data.message}))
-                })
+                setTemplates(data.map(data => ({label: data.name, value: data.message})))
             })
             .catch(console.log);
     }
 
-    render() {
 
-        return (
-            <form>
-                <div className="container">
-                    <h3 className="modal-title">New Message</h3>
-                    <div className="card-header">
-                        <p className="card-subtitle">Email To:</p>
-                        <input className="card-text w-50" id="emailTo"
-                               onChange={this.handleEmailToChange}
-                               name="emailTo"
-                               type="email"
-                               value={this.state.emailTo}
-                               required={(this.state.emailToRequired)}/>
+    return (
+        <form>
+            <div className="container">
+                <h3 className="modal-title">New Message</h3>
+                <div className="card-header">
+                    <p className="card-subtitle">Email To:</p>
+                    <input className="card-text w-50" id="emailTo"
+                           onChange={handleEmailToChange}
+                           name="emailTo"
+                           type="email"
+                           required={emailToRequired}/>
 
-                        <p className="card-subtitle">Slack To:</p>
-                        <input className="card-text w-50" id="slackTo"
-                               onChange={this.handleSlackToChange}
-                               name="slackTo"
-                               type="text"
-                               value={this.state.slackTo}
-                               required={(this.state.slackToRequired)}/>
+                    <p className="card-subtitle">Slack To:</p>
+                    <input className="card-text w-50" id="slackTo"
+                           onChange={handleSlackToChange}
+                           name="slackTo"
+                           type="text"
+                           required={slackToRequired}/>
 
-                        <p className="card-subtitle">Message:</p>
-                        <Select className="card-text" id="template"
-                                options={this.state.templates}
-                                onChange={this.loadMessage}/>
+                    <p className="card-subtitle">Message:</p>
+                    <Select className="card-text" id="template"
+                            options={templates}
+                            onChange={loadMessage}/>
 
-                        <textarea className="card-text" rows="4" cols="50" id="message"
-                                  value={this.state.message}
-                                  onChange={this.acceptText}
-                                  name="message"
-                                  required/>
+                    <textarea className="card-text" rows="4" cols="50" id="message"
+                              value={message}
+                              onChange={acceptText}
+                              name="message"
+                              required/>
 
-                        <p className="card-subtitle">Schedule:</p>
-                        <DateTimePicker className="card-text" id="scheduledTime" name="scheduledTime"
-                                        onChange={this.dateChange}
-                                        value={this.state.scheduledTime} required/>
+                    <p className="card-subtitle">Schedule:</p>
+                    <DateTimePicker className="card-text" id="scheduledTime" name="scheduledTime"
+                                    onChange={dateChange}
+                                    value={scheduledTime} required/>
 
-                        <p className="card-text"></p>
-                        <p>
-                            <button type="button"
-                                    className="btn btn-dark"
-                                    onClick={this.handleSubmit}>save
-                            </button>
-                        </p>
-                    </div>
+                    <p className="card-text"></p>
+                    <p>
+                        <button type="button"  onClick={handleSubmit}
+                                className="btn btn-dark">save
+                        </button>
+                    </p>
                 </div>
-            </form>
-        );
-    }
-};
+            </div>
+        </form>
+    );
+
+}
+;
 
 export default NewMessage

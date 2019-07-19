@@ -3,6 +3,7 @@ version: "3.7"
 services:
 
   mongodb:
+    network_mode: host
     container_name: mongodb
     image: mongo
     environment:
@@ -14,17 +15,22 @@ services:
       - 27017:27017
     command: mongod --smallfiles --logpath=/dev/null # --quiet
 
-  localhost:
+  api:
+    network_mode: host
     image: ecimionatto/x-comm-api
     ports:
       - "8080:8080"
       - "8077:8077"
       - "5005:5005"
+      - "587:587"
     depends_on:
       - mongodb
     environment:
       - spring_profiles_active=docker
-      - MONGODB_HOST=mongodb
+      - MONGODB_HOST=localhost
+    extra_hosts:
+      - smtp.gmail.com:74.125.142.108
+    dns_search: smtp.gmail.com
 
   x-comm-dashboard:
     container_name: x-comm-dashboard
@@ -35,8 +41,6 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - localhost
+      - api
     environment:
       - API_HOST=test
-
-
