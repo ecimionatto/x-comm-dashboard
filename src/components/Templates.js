@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 const API = 'http://localhost:8080/';
 const DEFAULT_QUERY = 'template';
@@ -44,7 +45,7 @@ class Templates extends Component {
                 <div className="container">
                     <h3 className="modal-title">Templates</h3>
                     <p>
-                        <a className="btn btn-info" href="newTemplate">New</a>
+                        <Link className="btn btn-info" to="/newTemplate">New</Link>
                     </p>
                     {this.state.templates.length === 0 ? "no records" : this.state.templates.map((template) => (
                         <div className="card">

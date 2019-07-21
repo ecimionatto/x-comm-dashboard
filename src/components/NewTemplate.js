@@ -8,34 +8,39 @@ class NewTemplate extends Component {
     constructor(props) {
         super(props);
         this.state = null;
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleSubmit(event) {
-        event.preventDefault();
 
-        const jsonBody = JSON.stringify({
-            name: event.target.name.value,
-            message: event.target.message.value
-        });
+        if (event) {
 
-        console.log(jsonBody)
+            event.preventDefault();
 
-        fetch(API + DEFAULT_QUERY, {
-            crossDomain: true,
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: jsonBody
-        });
+            const jsonBody = JSON.stringify({
+                name: event.target.form.name.value,
+                message: event.target.form.message.value
+            });
 
-        window.location.pathname = "templates";
+            console.log(jsonBody)
+
+            fetch(API + DEFAULT_QUERY, {
+                crossDomain: true,
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: jsonBody
+            });
+
+            return this.props.history.push("/templates")
+        }
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form>
                 <div className="container">
                     <h3 className="modal-title">New Template</h3>
                     <div className="card-header">
@@ -44,7 +49,7 @@ class NewTemplate extends Component {
                         <p className="card-subtitle">Message:</p>
                         <textarea className="card-text" rows="4" cols="50" id="message" name="message" required/>
                         <p className="card-text">
-                            <button className="btn btn-dark">save</button>
+                            <button type="button" className="btn btn-dark" onClick={this.handleSubmit}>save</button>
                         </p>
                     </div>
                 </div>

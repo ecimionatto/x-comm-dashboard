@@ -1,46 +1,32 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import Messages from './components/Messages'
-import NewMessage from './components/NewMessage';
-import Dashboard from './components/Dashboard';
-import Templates from './components/Templates';
-import NewTemplate from './components/NewTemplate';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { Auth0Provider } from "./react-auth0-wrapper";
+import config from "./auth_config.json";
 
-import 'bootstrap/dist/css/bootstrap.css';
+// A function that routes the user to the right place
+// after login
+const onRedirectCallback = appState => {
+    window.history.replaceState(
+        {},
+        document.title,
+        appState && appState.targetUrl
+            ? appState.targetUrl
+            : window.location.pathname
+    );
+};
 
-const routing = (
-    <Router>
-        <div className="card text-white bg-dark mb-3">
-            <h1 className="modal-title">X-Comm Communicator</h1>
-        </div>
+ReactDOM.render(
+    <Auth0Provider
+        domain={config.domain}
+        client_id={config.clientId}
+        redirect_uri={window.location.origin}
+        onRedirectCallback={onRedirectCallback}
+    >
+        <App />
+    </Auth0Provider>,
+    document.getElementById("root")
+);
 
-        <div className="card">
-            <div className="card-header">
-                <ul className="nav nav-tabs card-header-tabs">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/dashboard">Dashboard</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/messages">Messages</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/templates">Templates</Link>
-                    </li>
-                </ul>
-            </div>
-
-            <Route path="/" exact component={Dashboard}/>
-            <Route path="/dashboard" component={Dashboard}/>
-            <Route path="/messages" component={Messages}/>
-            <Route path="/templates" component={Templates}/>
-
-            <Link className="hide" to="/newMessage"/>
-            <Link className="hide" to="/newTemplate"/>
-            <Route path="/newMessage" component={NewMessage}/>
-            <Route path="/newTemplate" component={NewTemplate}/>
-        </div>
-    </Router>
-)
-ReactDOM.render(routing, document.getElementById('root'))
+serviceWorker.unregister();
