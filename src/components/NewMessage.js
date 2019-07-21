@@ -62,11 +62,13 @@ function NewMessage(props) {
 
     const handleSubmit = event => {
         if (event) {
+            event.preventDefault()
             const jsonBody = JSON.stringify({
-                message: event.target.form.message.value,
-                emailTo: event.target.form.emailTo.value,
-                slackTo: event.target.form.slackTo.value,
-                scheduledTime: event.target.form.scheduledTime.value,
+                message: event.target.message.value,
+                emailTo: event.target.emailTo.value,
+                slackTo: event.target.slackTo.value,
+                scheduledTime: event.target.scheduledTime.value,
+                user: user.email
             });
 
             console.log(jsonBody)
@@ -100,7 +102,7 @@ function NewMessage(props) {
 
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="container">
                 <h3 className="modal-title">New Message</h3>
                 <div className="card-header">
@@ -136,16 +138,12 @@ function NewMessage(props) {
 
                     <p className="card-text"></p>
                     <p>
-                        <button type="button"  onClick={handleSubmit}
-                                className="btn btn-dark">save
-                        </button>
+                        <button className="btn btn-dark">save</button>
                     </p>
                 </div>
             </div>
         </form>
     );
-
-}
-;
+};
 
 export default NewMessage
