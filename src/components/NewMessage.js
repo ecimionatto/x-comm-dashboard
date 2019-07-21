@@ -14,15 +14,15 @@ function NewMessage(props) {
     const [templates, setTemplates] = useState([]);
 
     const recurrenceData = [
-        {value: 'never', label: 'Never'},
-        {value: 'daily', label: 'Daily For a Week'},
-        {value: 'weekly', label: 'Weekly'},
-        {value: 'monthly', label: 'Monthly'}];
+        {value: 'NEVER', label: 'never'},
+        {value: 'DAILY', label: 'daily'},
+        {value: 'WEEKLY', label: 'weekly'},
+        {value: 'MONTHLY', label: 'monthly'}];
 
     const [message, setMessage] = useState('');
     const [slackTo, setSlackTo] = useState('');
     const [emailTo, setEmailTo] = useState('');
-
+    const [recurrence, setRecurrence] = useState('never');
 
     const {user} = useAuth0();
 
@@ -57,6 +57,12 @@ function NewMessage(props) {
         }
     }
 
+    const loadRecurrence = event => {
+        if (event) {
+            setRecurrence(event.value)
+        }
+    };
+
     const dateChange = date => {
         if (date) {
             setScheduledTime(date)
@@ -77,7 +83,8 @@ function NewMessage(props) {
                 emailTo: event.target.emailTo.value,
                 slackTo: event.target.slackTo.value,
                 scheduledTime: event.target.scheduledTime.value,
-                user: user.email
+                user: user.email,
+                recurrence: event.target.recurrence.value
             });
 
             console.log(jsonBody)
@@ -122,12 +129,16 @@ function NewMessage(props) {
                            type="email"
                            required={emailToRequired}/>
 
+                    <p className="card-text"></p>
+
                     <p className="card-subtitle">Slack To:</p>
                     <input className="card-text w-50" id="slackTo"
                            onChange={handleSlackToChange}
                            name="slackTo"
                            type="text"
                            required={slackToRequired}/>
+
+                    <p className="card-text"></p>
 
                     <p className="card-subtitle">Message:</p>
                     <Select className="card-text w-25" id="template"
@@ -140,15 +151,21 @@ function NewMessage(props) {
                               name="message"
                               required/>
 
+                    <p className="card-text"></p>
+
                     <p className="card-subtitle">Schedule:</p>
                     <DateTimePicker className="card-text" id="scheduledTime" name="scheduledTime"
                                     onChange={dateChange}
                                     value={scheduledTime} required/>
 
+                    <p className="card-text"></p>
 
                     <p className="card-subtitle">Recurrence:</p>
                     <Select className="card-text w-25" id="recurrence"
-                            options={recurrenceData} required/>
+                            options={recurrenceData}
+                            defaultValue={{ label: "never", value: "NEVER" }}
+                            onChange={loadRecurrence}/>
+                    <input type="hidden" id="recurrence" value={recurrence}/>
 
                     <p className="card-text"></p>
 
