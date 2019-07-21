@@ -12,9 +12,18 @@ function NewMessage(props) {
     const [emailToRequired, setEmailToRequired] = useState(true);
     const [slackToRequired, setSlackToRequired] = useState(true);
     const [templates, setTemplates] = useState([]);
+
+    const recurrenceData = [
+        {value: 'never', label: 'Never'},
+        {value: 'daily', label: 'Daily For a Week'},
+        {value: 'weekly', label: 'Weekly'},
+        {value: 'monthly', label: 'Monthly'}];
+
     const [message, setMessage] = useState('');
     const [slackTo, setSlackTo] = useState('');
     const [emailTo, setEmailTo] = useState('');
+
+
     const {user} = useAuth0();
 
     useEffect(() => {
@@ -121,7 +130,7 @@ function NewMessage(props) {
                            required={slackToRequired}/>
 
                     <p className="card-subtitle">Message:</p>
-                    <Select className="card-text" id="template"
+                    <Select className="card-text w-25" id="template"
                             options={templates}
                             onChange={loadMessage}/>
 
@@ -136,7 +145,13 @@ function NewMessage(props) {
                                     onChange={dateChange}
                                     value={scheduledTime} required/>
 
+
+                    <p className="card-subtitle">Recurrence:</p>
+                    <Select className="card-text w-25" id="recurrence"
+                            options={recurrenceData} required/>
+
                     <p className="card-text"></p>
+
                     <p>
                         <button className="btn btn-dark">save</button>
                     </p>
