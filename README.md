@@ -9,6 +9,12 @@ This project was bootstrapped with [Create React Messages](https://github.com/fa
 ## Docker Compose
 `docker-compose up/down`
 
+## Kubernetes Dashboard Secret
+`kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
+
+##EKS Create Cluster
+` eksctl create cluster -f cluster.yaml`
+
 ## Available Scripts
 
 In the project directory, you can run:
